@@ -53,7 +53,7 @@ namespace APIMongoDb.Controllers
             return Created("Created", true);
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteProduct(string id)
         {
             await db.DeleteProduct(id);
