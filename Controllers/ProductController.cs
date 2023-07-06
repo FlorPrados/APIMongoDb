@@ -9,13 +9,13 @@ namespace APIMongoDb.Controllers
     [ApiController]
     public class ProductController : Controller
     {
-        private IProductCollection db = new ProductCollection();
 
-        //private readonly IProductCollection db;
-        //public ProductController(IProductCollection _db)
-        //{
-        //    db = _db;
-        //}
+        private IProductCollection db;
+
+        public ProductController(IProductCollection productCollection)
+        {
+            db = productCollection;
+        }
 
 
         [HttpGet]
