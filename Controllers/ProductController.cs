@@ -10,18 +10,19 @@ namespace APIMongoDb.Controllers
     public class ProductController : Controller
     {
         private IProductCollection db = new ProductCollection();
-        
+
+        //private readonly IProductCollection db;
+        //public ProductController(IProductCollection _db)
+        //{
+        //    db = _db;
+        //}
+
+
         [HttpGet]
-        public async Task<IActionResult> GetAllProducts()
-        {
-            return Ok(await db.GetAllProducts());
-        }
+        public async Task<IActionResult> GetAllProducts() => Ok(await db.GetAllProducts());
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(string id)
-        {
-            return Ok(await db.GetProductById(id));
-        }
+        public async Task<IActionResult> GetById(string id) => Ok(await db.GetProductById(id));
 
         [HttpPost]
         public async Task<IActionResult> CreateProduct([FromBody] Product product)
@@ -48,7 +49,7 @@ namespace APIMongoDb.Controllers
             }
             product.Id = new MongoDB.Bson.ObjectId(id);
 
-            await db.InsertProduct(product);
+            await db.UpdateProduct(product);
 
             return Created("Created", true);
         }
@@ -57,7 +58,6 @@ namespace APIMongoDb.Controllers
         public async Task<IActionResult> DeleteProduct(string id)
         {
             await db.DeleteProduct(id);
-
             return NoContent();
         }
 
